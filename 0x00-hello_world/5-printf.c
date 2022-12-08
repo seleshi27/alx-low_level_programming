@@ -1,6 +1,6 @@
 #include<stdio.h>
 /**
- * Hello, printf 
+ *Hello, printf 
  */
 int main(void)
 

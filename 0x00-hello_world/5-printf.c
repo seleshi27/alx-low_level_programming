@@ -1,4 +1,7 @@
 #include<stdio.h>
+/*
+ * Hello, printf
+ */
 int main(void)
 
 {

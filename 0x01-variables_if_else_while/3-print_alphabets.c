@@ -22,5 +22,3 @@ int main(void)
 	putchar('\n');
 	return (0);
 }
-Footer
-© 2022 GitHub, Inc.

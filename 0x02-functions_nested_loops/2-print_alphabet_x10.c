@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- *function that prints lowercase letter 10 times
+ * Description:function that prints lowercase letter 10 times
  *
  */
 

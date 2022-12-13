@@ -1,9 +1,8 @@
-#include <unistd.h>
-#include "main.h"
+#include <stdio.h>
 /**
- * _putchar - writes the character c to stdout
+ * Write a program that prints _putchar, followed by a new line.
  */
-int _putchar(char c)
+int main()
 {
-	return (write(1, &c, 1));
+	putchar(_putchar\n);
 }

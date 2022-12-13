@@ -2,10 +2,10 @@
 
 int void print_alphabet(void)
 {
-  char ch;
+  char ch=a;
   for (ch='a'; ch<='z'; ch++)
   {
-    _putchar(ch '\n');
-     return (0);
+    _putchar(ch);
   }
+  _putchar('\n')
 }

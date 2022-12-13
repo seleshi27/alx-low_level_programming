@@ -7,7 +7,7 @@
  * On error, -1 is returned, and errno is set appropriately.
  */
 int _putchar(char c)
-{
-	putchar("_putchar \n");
-	return (0);
-}
+	{
+	char c='G'
+	putchar(c \n);
+	}

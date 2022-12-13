@@ -1,5 +1,6 @@
 #include "main.h"
 int main()
     {
-_putchar(char c);
+    _putchar();
+    return(0);
     }

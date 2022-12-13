@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * Write a function that prints 10 times the alphabet.
+ *function that prints lowercase letter 10 times
  *
  */
 

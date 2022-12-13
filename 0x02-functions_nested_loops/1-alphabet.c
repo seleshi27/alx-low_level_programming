@@ -13,5 +13,5 @@ char ch = 'a';
         {
                     _putchar(ch);
         }
-        _putchar('\n');
+    _putchar('\n');
 }

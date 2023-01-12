@@ -1,99 +1,126 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "main.h"
-
-/**
- * is_digit - checks if a string contains a non-digit char
- * @s: string to be evaluated
- *
- * Return: 0 if a non-digit is found, 1 otherwise
- */
-int is_digit(char *s)
-{
-	int i = 0;
-
-	while (s[i])
-	{
-		if (s[i] < '0' || s[i] > '9')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-/**
- * _strlen - returns the length of a string
- * @s: string to evaluate
- *
- * Return: the length of the string
- */
-int _strlen(char *s)
-{
-	int i = 0;
-
-	while (s[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
-
-/**
- * errors - handles errors for main
- */
-void errors(void)
-{
-	printf("Error\n");
-	exit(98);
-}
-
+#include <stdlib.h>
 /**
  * main - multiplies two positive numbers
- * @argc: number of arguments
- * @argv: array of arguments
- *
- * Return: always 0 (Success)
+ * @argc: num of args
+ * @argv: pointer to args
+ * Return: int status
  */
 int main(int argc, char *argv[])
 {
-	char *s1, *s2;
-	int len1, len2, len, i, carry, digit1, digit2, *result, a = 0;
+	unsigned int n1, n2, result;
 
-	s1 = argv[1], s2 = argv[2];
-	if (argc != 3 || !is_digit(s1) || !is_digit(s2))
-		errors();
-	len1 = _strlen(s1);
-	len2 = _strlen(s2);
-	len = len1 + len2 + 1;
-	result = malloc(sizeof(int) * len);
-	if (!result)
-		return (1);
-	for (i = 0; i <= len1 + len2; i++)
-		result[i] = 0;
-	for (len1 = len1 - 1; len1 >= 0; len1--)
+	int j = 1;
+
+	if (argc != 3)
 	{
-		digit1 = s1[len1] - '0';
-		carry = 0;
-		for (len2 = _strlen(s2) - 1; len2 >= 0; len2--)
+		print_string("Error in args\n");
+		exit(98);
+	}
+
+	while (j < argc)
+	{
+		if (only_nums(argv[j]) == 0)
 		{
-			digit2 = s2[len2] - '0';
-			carry += result[len1 + len2 + 1] + (digit1 * digit2);
-			result[len1 + len2 + 1] = carry % 10;
-			carry /= 10;
+			print_string("Error in digits\n");
+			exit(98);
 		}
-		if (carry > 0)
-			result[len1 + len2 + 1] += carry;
+		j++;
 	}
-	for (i = 0; i < len - 1; i++)
-	{
-		if (result[i])
-			a = 1;
-		if (a)
-			_putchar(result[i] + '0');
-	}
-	if (!a)
-		_putchar('0');
+
+	n1 = _atoi(argv[1]);
+	n2 = _atoi(argv[2]);
+	result = n1 * n2;
+	print_int(result);
 	_putchar('\n');
-	free(result);
 	return (0);
+}
+/**
+ * only_nums - checks for non-digit symbols
+ * @s: string
+ * Return: 1 if test passed 0 otherwise
+ */
+int only_nums(char *s)
+{
+	int c = 0;
+
+	while (*(s + c) != 0)
+	{
+		if (*(s + c) < 48 || *(s + c) > 57)
+		{
+			return (0);
+		}
+		c++;
+	}
+	if (c == 0)
+		return (0);
+	return (1);
+}
+/**
+ * _atoi - convert string to int
+ * Return: the int
+ * @s: string
+ */
+int _atoi(char *s)
+{
+	int size = 0, i, j, sign = 1;
+
+	int number = 0;
+
+	while (s[size] != 0)
+	{
+		size++;
+	}
+
+	for (i = 0; i < size; i++)
+	{
+		if (s[i] >= 48 && s[i] <= 57)
+		{
+			int pow = 1;
+
+			j = i;
+			while (s[j] >= 48 && s[j] <= 57)
+			{
+				j++;
+			}
+			j--;
+			while (j >= i)
+			{
+				number += (s[j] - '0') * pow;
+				pow *= 10;
+				j--;
+			}
+			break;
+		}
+		else if (s[i] == 45)
+			sign = -sign;
+	}
+	if (sign < 0)
+		number = -number;
+	return (number);
+}
+/**
+ * print_string - prints string with putchar
+ * @s: string
+ * Return: void
+ */
+void print_string(char s[])
+{
+	int c = 0;
+
+	while (s[c] != 0)
+	{
+		_putchar(s[c]);
+		c++;
+	}
+}
+/**
+ * print_int - prints integer
+ * @n: integer to print
+ */
+void print_int(unsigned int n)
+{
+	if (n / 10)
+		print_int(n / 10);
+	_putchar(n % 10 + '0');
 }

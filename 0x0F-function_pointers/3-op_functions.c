@@ -1,28 +1,56 @@
 #include "3-calc.h"
 
 /**
- * get_op_func - selects the correct calculator operator
- * @s: a pointer to an operator (+|-|*|/|%)
- * Return: a pointer to an operator
+ * op_add - add two numbers
+ * @a: first number
+ * @b: second number
+ * Return: a + b
  */
-int (*get_op_func(char *s))(int, int)
+int op_add(int a, int b)
 {
-	op_t ops[] = {
-		{"+", op_add},
-		{"-", op_sub},
-		{"*", op_mul},
-		{"/", op_div},
-		{"%", op_mod},
-		{NULL, NULL}
-	};
-	int i;
+	return (a + b);
+}
 
-	i = 0;
-	while (i < 5)
-	{
-		if (*(ops + i)->op == *s)
-			return ((ops + i)->f);
-		i++;
-	}
-	return (NULL);
+/**
+ * op_sub - subtracts two numbers
+ * @a: first number
+ * @b: second number
+ * Return: a - b
+ */
+int op_sub(int a, int b)
+{
+	return (a - b);
+}
+
+/**
+ * op_mul - multiplies two numbers
+ * @a: first number
+ * @b: second number
+ * Return: a * b
+ */
+int op_mul(int a, int b)
+{
+	return (a * b);
+}
+
+/**
+ * op_div - divides a number by another
+ * @a: numerator
+ * @b: denominator
+ * Return: a / b
+ */
+int op_div(int a, int b)
+{
+	return (a / b);
+}
+
+/**
+ * op_mod - returns the remainder of a division
+ * @a: numerator
+ * @b: denominator
+ * Return: a % b
+ */
+int op_mod(int a, int b)
+{
+	return (a % b);
 }

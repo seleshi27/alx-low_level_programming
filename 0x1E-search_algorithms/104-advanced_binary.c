@@ -1,59 +1,64 @@
 #include "search_algos.h"
-#include <stdio.h>
 
 /**
- * print_array - print an array of integers
+ * rec_search - searches for a value in an array of
+ * integers using the Binary search algorithm
  *
- * @array: the array to print
- * @size: the size of the array
  *
- * Return: nothing!
+ * @array: input array
+ * @size: size of the array
+ * @value: value to search in
+ * Return: index of the number
  */
-void print_array(int *array, size_t size)
+int rec_search(int *array, size_t size, int value)
 {
+	size_t half = size / 2;
 	size_t i;
 
-	if (!(array && size))
-		return;
+	if (array == NULL || size == 0)
+		return (-1);
 
-	for (i = 0; i < size - 1; i++)
-		printf("%i, ", array[i]);
-	printf("%i\n", array[i]);
+	printf("Searching in array");
+
+	for (i = 0; i < size; i++)
+		printf("%s %d", (i == 0) ? ":" : ",", array[i]);
+
+	printf("\n");
+
+	if (half && size % 2 == 0)
+		half--;
+
+	if (value == array[half])
+	{
+		if (half > 0)
+			return (rec_search(array, half + 1, value));
+		return ((int)half);
+	}
+
+	if (value < array[half])
+		return (rec_search(array, half + 1, value));
+
+	half++;
+	return (rec_search(array + half, size - half, value) + half);
 }
 
 /**
- * advanced_binary - searches for a value in a list using the binary search
- * algorithm.
+ * advanced_binary - calls to rec_search to return
+ * the index of the number
  *
- * @array: array of integers
- * @size: size of array
- * @value: value to search for
- *
- * Return: the index of the first @value was found or -1 if it wasn't found.
+ * @array: input array
+ * @size: size of the array
+ * @value: value to search in
+ * Return: index of the number
  */
 int advanced_binary(int *array, size_t size, int value)
 {
-	int mid, index;
+	int index;
 
-	if (!(array && size))
+	index = rec_search(array, size, value);
+
+	if (index >= 0 && array[index] != value)
 		return (-1);
 
-	printf("Searching in array: ");
-	print_array(array, size);
-	mid = (size - 1) / 2;
-
-	if (value == array[mid])
-	{
-		if ((mid > 0 && array[mid - 1] != value) || (mid == 0))
-			return (mid);
-		return (advanced_binary(array, size - (mid + 1), value));
-	}
-	else if (value < array[mid])
-		return (advanced_binary(array, size - (mid + 2), value));
-
-	index = advanced_binary(
-		array + mid + 1, size - (mid + 1), value);
-	if (index > -1)
-		return ((mid + 1) + index);
-	return (-1);
+	return (index);
 }

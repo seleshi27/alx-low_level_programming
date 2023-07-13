@@ -1,49 +1,64 @@
 #include "search_algos.h"
 
 /**
- * _advanced_binary - advanced binary search
- * @array: the integer array
- * @size: size
- * @value: value to search for
+ * rec_search - searches for a value in an array of
+ * integers using the Binary search algorithm
  *
- * Return: the index found or -1
+ *
+ * @array: input array
+ * @size: size of the array
+ * @value: value to search in
+ * Return: index of the number
  */
-int *_advanced_binary(int *array, size_t size, int value)
+int rec_search(int *array, size_t size, int value)
 {
-	size_t i = 0;
+	size_t half = size / 2;
+	size_t i;
 
-	if (!size || !array)
-		return (NULL);
-	for (printf("Searching in array: "); i < size; i++)
-		printf("%d%s", array[i], i + 1 == size ? "\n" : ", ");
+	if (array == NULL || size == 0)
+		return (-1);
 
-	i = (size - 1) / 2;
-	if (array[i] == value)
+	printf("Searching in array");
+
+	for (i = 0; i < size; i++)
+		printf("%s %d", (i == 0) ? ":" : ",", array[i]);
+
+	printf("\n");
+
+	if (half && size % 2 == 0)
+		half--;
+
+	if (value == array[half])
 	{
-		if (i)
-			return (_advanced_binary(array, i + 1, value));
-		return (array + i);
+		if (half > 0)
+			return (rec_search(array, half + 1, value));
+		return ((int)half);
 	}
-	else if (array[i] > value)
-		return (_advanced_binary(array, i + 1, value));
-	else
-		return (_advanced_binary(array + i + 1, size - i - 1, value));
+
+	if (value < array[half])
+		return (rec_search(array, half + 1, value));
+
+	half++;
+	return (rec_search(array + half, size - half, value) + half);
 }
 
 /**
- * advanced_binary - advanced binary search
- * @array: the integer array
- * @size: size
- * @value: value to search for
+ * advanced_binary - calls to rec_search to return
+ * the index of the number
  *
- * Return: the index found or -1
+ * @array: input array
+ * @size: size of the array
+ * @value: value to search in
+ * Return: index of the number
  */
 int advanced_binary(int *array, size_t size, int value)
 {
-	int *first = _advanced_binary(array, size, value);
+	int index;
 
-	if (!first)
+	index = rec_search(array, size, value);
+
+	if (index >= 0 && array[index] != value)
 		return (-1);
-	else
-		return (first - array);
+
+	return (index);
 }
